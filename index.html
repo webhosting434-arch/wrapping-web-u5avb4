@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Wrapper & Converter</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #090514);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .pulse-loader {
+            animation: pulse-soft 2s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 flex flex-col justify-between overflow-x-hidden">
+
+    <script async src="https://pl28798134.effectivecpmnetwork.com/bc/5c/78/bc5c78f9b89f814cd957e1ea17625333.js"></script>
+
+    <div id="main-interface" class="w-full max-w-4xl mx-auto px-4 py-12 flex-grow flex flex-col justify-center items-center z-10 transition-all duration-500">
+        
+        <div id="setup-section" class="w-full glass-card rounded-3xl p-8 md:p-10 shadow-2xl transform transition-all duration-500 ease-out">
+            <div class="mb-8 text-center">
+                <span class="px-3 py-1 text-xs font-semibold tracking-wider text-indigo-400 uppercase bg-indigo-500/10 rounded-full">Premium Secure Generator</span>
+                <h1 class="text-3xl md:text-4xl font-bold mt-3 tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent">HTML Web Wrapper</h1>
+                <p class="text-slate-400 mt-2 text-sm md:text-base">Konversi link eksternal ke skrip HTML interaktif dengan counter otomatis 5 detik.</p>
+            </div>
+
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Masukkan URL Tujuan</label>
+                    <input type="url" id="target-url" placeholder="https://situs-tujuan.com" 
+                        class="w-full px-5 py-4 bg-slate-950/50 border border-slate-800 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-300">
+                </div>
+
+                <button onclick="generateWrappedWeb()" 
+                    class="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold rounded-2xl shadow-lg shadow-indigo-600/20 transition-all duration-300 transform active:scale-[0.98]">
+                    Bungkus & Convert Ke HTML
+                </button>
+            </div>
+        </div>
+
+        <div id="gateway-section" class="w-full max-w-md glass-card rounded-3xl p-8 text-center shadow-2xl hidden opacity-0 scale-95 transition-all duration-500 ease-out">
+            <div class="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-indigo-500/20">
+                <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            
+            <h2 class="text-2xl font-bold mb-2">Tautan Siap Dibuka</h2>
+            <p class="text-slate-400 text-sm mb-8 px-4">Klik start untuk memproses verifikasi link dan menuju ke halaman asli.</p>
+
+            <button id="start-btn" onclick="startCountdown()" 
+                class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-600/20 transition-all duration-300 transform active:scale-[0.98]">
+                Start Destination
+            </button>
+
+            <div id="countdown-display" class="hidden mt-4">
+                <div class="text-sm text-slate-400 mb-1 pulse-loader">Megarahkan secara aman ke server tujuan...</div>
+                <div class="text-4xl font-extrabold text-indigo-400 tracking-wider" id="timer-number">5</div>
+                <div class="w-full bg-slate-900 h-1.5 rounded-full mt-3 overflow-hidden border border-slate-800">
+                    <div id="progress-bar" class="bg-indigo-500 h-full w-0 transition-all duration-1000 ease-linear"></div>
+                </div>
+            </div>
+
+            <div id="copy-section" class="mt-6 pt-6 border-t border-slate-800 hidden">
+                <button onclick="copyGeneratedHTML()" id="copy-btn"
+                    class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl border border-slate-700 transition-all duration-200 flex items-center justify-center space-x-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    <span id="copy-text">Copy HTML Code</span>
+                </button>
+                <textarea id="output-code-holder" class="sr-only"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="w-full text-center py-6 text-xs text-slate-600 border-t border-slate-900 bg-slate-950/20 z-10">
+        <div>High-Performance Web Converter &bull; Anti-Bug Engine &bull; All Rights Reserved</div>
+    </footer>
+
+    <script>
+        let finalUrl = "";
+
+        function generateWrappedWeb() {
+            const urlInput = document.getElementById('target-url').value.trim();
+            
+            if (!urlInput) {
+                alert("Peringatan: Silakan isi URL target terlebih dahulu!");
+                return;
+            }
+
+            // Normalisasi URL otomatis
+            if (!urlInput.startsWith('http://') && !urlInput.startsWith('https://')) {
+                finalUrl = 'https://' + urlInput;
+            } else {
+                finalUrl = urlInput;
+            }
+
+            // Konstruksi pemisah teks script pembungkus agar tidak crash di browser lokal Android
+            const scriptOpen = "<script";
+            const scriptClose = "<\/script>";
+
+            // GENERATE KODE UNTUK DI COPY
+            const generatedHTMLCode = `<!DOCTYPE html>` + `\n` +
+`<html lang="id">` + `\n` +
+`<head>` + `\n` +
+`    <meta charset="UTF-8">` + `\n` +
+`    <meta name="viewport" content="width=device-width, initial-scale=1.0">` + `\n` +
+`    <title>Menuju Halaman Aman...</title>` + `\n` +
+`    ` + scriptOpen + ` src="https://pl28798134.effectivecpmnetwork.com/bc/5c/78/bc5c78f9b89f814cd957e1ea17625333.js">` + scriptClose + `\n` +
+`    ` + scriptOpen + ` src="https://cdn.tailwindcss.com">` + scriptClose + `\n` +
+`    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">` + `\n` +
+`    <style>` + `\n` +
+`        body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at top right, #1e1b4b, #090514); }` + `\n` +
+`        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }` + `\n` +
+`        @keyframes pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }` + `\n` +
+`        .pulse-loader { animation: pulse-soft 2s infinite; }` + `\n` +
+`    </style>` + `\n` +
+`</head>` + `\n` +
+`<body class="min-h-screen text-slate-100 flex flex-col justify-between overflow-x-hidden">` + `\n` +
+`    <div class="w-full max-w-md mx-auto px-4 py-12 flex-grow flex flex-col justify-center items-center z-10">` + `\n` +
+`        <div class="w-full glass-card rounded-3xl p-8 text-center shadow-2xl">` + `\n` +
+`            <div class="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-indigo-500/20">` + `\n` +
+`                <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>` + `\n` +
+`            </div>` + `\n` +
+`            <h2 class="text-2xl font-bold mb-2">Tautan Siap Dibuka</h2>` + `\n` +
+`            <p class="text-slate-400 text-sm mb-8 px-4">Klik tombol di bawah untuk memproses dan mengarah ke halaman tujuan resmi.</p>` + `\n` +
+`            <button id="start-btn" onclick="startCountdown()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-600/20 transition-all duration-300 transform active:scale-[0.99]">Start Destination</button>` + `\n` +
+`            <div id="countdown-display" class="hidden mt-4">` + `\n` +
+`                <div class="text-sm text-slate-400 mb-1 pulse-loader">Mengarahkan secara aman...</div>` + `\n` +
+`                <div class="text-4xl font-extrabold text-indigo-400 tracking-wider" id="timer-number">5</div>` + `\n` +
+`                <div class="w-full bg-slate-900 h-1.5 rounded-full mt-3 overflow-hidden border border-slate-800">` + `\n` +
+`                    <div id="progress-bar" class="bg-indigo-500 h-full w-0 transition-all duration-1000 ease-linear"></div>` + `\n` +
+`                </div>` + `\n` +
+`            </div>` + `\n` +
+`        </div>` + `\n` +
+`    </div>` + `\n` +
+`    ` + scriptOpen + `>` + `\n` +
+`        function startCountdown() {` + `\n` +
+`            document.getElementById('start-btn').classList.add('hidden');` + `\n` +
+`            document.getElementById('countdown-display').classList.remove('hidden');` + `\n` +
+`            let timeLeft = 5;` + `\n` +
+`            setTimeout(() => { document.getElementById('progress-bar').style.width = '100%'; }, 50);` + `\n` +
+`            const interval = setInterval(() => {` + `\n` +
+`                timeLeft--;` + `\n` +
+`                document.getElementById('timer-number').innerText = timeLeft;` + `\n` +
+`                if (timeLeft <= 0) {` + `\n` +
+`                    clearInterval(interval);` + `\n` +
+`                    window.location.replace("${finalUrl}");` + `\n` +
+`                }` + `\n` +
+`            }, 1000);` + `\n` +
+`        }` + `\n` +
+`    ` + scriptClose + `\n` +
+`</body>` + `\n` +
+`</html>`;
+
+            document.getElementById('output-code-holder').value = generatedHTMLCode;
+
+            // Animasi Transisi Halus Bebas Lag
+            const setupBox = document.getElementById('setup-section');
+            const gatewayBox = document.getElementById('gateway-section');
+            const copyBox = document.getElementById('copy-section');
+
+            setupBox.classList.add('opacity-0', 'scale-95');
+            
+            setTimeout(() => {
+                setupBox.classList.add('hidden');
+                gatewayBox.classList.remove('hidden');
+                copyBox.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    gatewayBox.classList.remove('opacity-0', 'scale-95');
+                }, 50);
+            }, 400);
+        }
+
+        function startCountdown() {
+            const startBtn = document.getElementById('start-btn');
+            const countdownDisplay = document.getElementById('countdown-display');
+            const timerNumber = document.getElementById('timer-number');
+            const progressBar = document.getElementById('progress-bar');
+            const copyBox = document.getElementById('copy-section');
+            
+            startBtn.classList.add('hidden');
+            if(copyBox) copyBox.classList.add('hidden');
+            countdownDisplay.classList.remove('hidden');
+            
+            let timeLeft = 5;
+            timerNumber.innerText = timeLeft;
+            
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+            }, 50);
+
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                timerNumber.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    window.location.replace(finalUrl);
+                }
+            }, 1000);
+        }
+
+        function copyGeneratedHTML() {
+            const codeArea = document.getElementById('output-code-holder');
+            const copyText = document.getElementById('copy-text');
+            const copyBtn = document.getElementById('copy-btn');
+
+            codeArea.select();
+            codeArea.setSelectionRange(0, 99999);
+            
+            try {
+                // Metode fallback jika Clipboard API terhambat batasan file lokal
+                document.execCommand('copy');
+                navigator.clipboard.writeText(codeArea.value);
+            } catch (err) {
+                // Silently bypass jika salah satu metode diblokir sistem lokal
+            }
+
+            copyText.innerText = "Copied to Clipboard!";
+            copyBtn.classList.remove('bg-slate-800', 'text-slate-200');
+            copyBtn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500');
+
+            setTimeout(() => {
+                copyText.innerText = "Copy HTML Code";
+                copyBtn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500');
+                copyBtn.classList.add('bg-slate-800', 'text-slate-200');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
